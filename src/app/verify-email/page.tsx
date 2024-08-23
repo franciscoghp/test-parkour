@@ -10,7 +10,7 @@ export default async function VerifyEmailPage({ searchParams }: { searchParams: 
   const verificationToken = await db.verificationToken.findUnique({
     where: { token: searchParams.token },
   });
-  console.log(verificationToken)
+  //console.log(verificationToken)
   if (!verificationToken || verificationToken.expiresAt < new Date()) {
     return <p>Verification token is invalid or has expired.</p>;
   }

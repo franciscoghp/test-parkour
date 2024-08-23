@@ -4,11 +4,11 @@
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
 // export async function sendVerificationEmail(email: string, token: string) {
-//   console.log({email, token})
+//   //console.log({email, token})
 //   const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${token}`;
-//   console.log(verificationUrl)
+//   //console.log(verificationUrl)
 //   const emailFrom = process.env.EMAIL_FROM as string;
-//   // console.log(emailFrom)
+//   // //console.log(emailFrom)
 //   const response = await resend.emails.send({
 //     from: 'Acme <onboarding@resend.dev>',
 //     to: [email],
@@ -16,7 +16,7 @@
 //     html: `<p>Click the link below to verify your email address:</p>
 //            <a href="${verificationUrl}">Verify Email</a>`,
 //   });
-//   console.log(response)
+//   //console.log(response)
 // }
 
 
@@ -54,7 +54,7 @@ export async function sendVerificationEmail(email: string, token: string) {
             <a href="${verificationUrl}">Verify Email</a>`,
     };
     const info = await transporter.sendMail(mailOptions);
-    console.log('Correo enviado: %s', info.messageId);
+    //console.log('Correo enviado: %s', info.messageId);
   } catch (error) {
     console.error('Error al enviar el correo: %s', error);
   }

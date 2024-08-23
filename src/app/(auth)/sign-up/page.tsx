@@ -100,6 +100,15 @@ const SignUpPage: React.FC = () => {
         >
           Sign Up
         </button>
+        <hr />
+        <span className="w-full flex justify-center text-white py-2 rounded-md">or, If you do have account already: </span>
+        <button
+        type="button"
+          onClick={() => router.push('/sign-in')}
+          className="w-full bg-blue-500 text-white py-2 rounded-md"
+        >
+          Sign In
+        </button>
       </form>
     </div>
   );

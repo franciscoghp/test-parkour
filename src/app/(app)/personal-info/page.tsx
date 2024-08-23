@@ -4,12 +4,24 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 
+// Definir el esquema de validación usando Zod
 const schema = z.object({
   name: z.string().nonempty("Name is required"),
-  cedula: z.string().nonempty("Cedula is required"),
-  telefono: z.string().nonempty("Telefono is required"),
+  cedula: z
+    .number({ required_error: "Cedula is required" })
+    .int("Cedula must be a valid integer")
+    .min(100000, "Cedula must be at least 6 digits")
+    .max(99999999, "Cedula must be at most 8 digits"),
+  telefono: z
+    .number({ required_error: "Telefono is required" })
+    .int("Telefono must be a valid integer")
+    .min(1000000000, "Telefono must be a 10-digit number")
+    .max(9999999999, "Telefono must be a 10-digit number"),
   direccion: z.string().nonempty("Direccion is required"),
-  salario: z.number().min(0, "Salario must be a positive number"),
+  salario: z
+    .number({ required_error: "Salario is required" })
+    .min(1, "Salario must be a positive number")
+    .nonnegative("Salario must not be negative"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -65,9 +77,9 @@ const AddPersonalInfoPage: React.FC = () => {
               Cedula
             </label>
             <input
-              {...register("cedula")}
+              {...register("cedula", { valueAsNumber: true })}
               id="cedula"
-              type="text"
+              type="number"
               className={`mt-1 block w-full px-3 py-2 border ${
                 errors.cedula ? 'border-red-500' : 'border-gray-300'
               } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -82,9 +94,9 @@ const AddPersonalInfoPage: React.FC = () => {
               Telefono
             </label>
             <input
-              {...register("telefono")}
+              {...register("telefono", { valueAsNumber: true })}
               id="telefono"
-              type="text"
+              type="number"
               className={`mt-1 block w-full px-3 py-2 border ${
                 errors.telefono ? 'border-red-500' : 'border-gray-300'
               } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}

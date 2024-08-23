@@ -4,7 +4,7 @@ import { checkAuth, getUserAuth } from "@/lib/auth/utils";
 export default async function Account() {
   await checkAuth();
   const { session } = await getUserAuth();
-  console.log('getUserAuth')
+  //console.log('getUserAuth')
   return (
     <main>
       <h1 className="text-2xl font-semibold my-4">Account</h1>

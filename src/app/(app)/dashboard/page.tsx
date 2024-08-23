@@ -1,24 +1,17 @@
-
-import SignIn from "@/components/auth/SignIn";
+import { DataTableDemo } from "@/components/data-table/page";
 import { getUserAuth } from "@/lib/auth/utils";
-import { signOut } from "next-auth/react";
+import { fetchPersonalInfo } from "@/lib/fetchPersonalInfo";
 
 export default async function Home() {
-  console.log('Home')
   const { session } = await getUserAuth();
-  console.log(session)
-  if( !session?.user.emailVerified ) {
-    console.log('vamos a cerrar la sesion')
-    signOut({ callbackUrl: "/sign-in" })
-  }
+  const data = await fetchPersonalInfo();
   return (
     <main className="space-y-4">
+      <h1 className="text-2xl font-semibold">List of my Personals Info</h1>
       {session ? (
-        <pre className="bg-secondary p-4 rounded-sm shadow-sm text-secondary-foreground break-all whitespace-break-spaces">
-          {JSON.stringify(session, null, 2)}
-        </pre>
+      <DataTableDemo  data={data} />
       ) : null}
-      <SignIn />
+      {/* <SignIn /> */}
     </main>
   );
 }

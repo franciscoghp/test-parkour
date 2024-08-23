@@ -26,19 +26,19 @@ const SignInPage: React.FC = () => {
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
-    console.log(data)
+    //console.log(data)
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password,
       callbackUrl: '/dashboard'
     });
-    console.log({result})
+    //console.log({result})
     if (result?.error && result.status == 401) {
       setError("Credenciales incorrectas. Inténtalo de nuevo.");
     } else if (result?.ok) {
       const session = await getSession();
-      console.log(session)
+      //console.log(session)
       if( session?.user.emailVerified ) router.push(result.url || '/dashboard' );
       else setError("Por favor, verifica tu correo electrónico antes de continuar.");4
       
@@ -84,7 +84,7 @@ const SignInPage: React.FC = () => {
           Sign In
         </button>
         <hr />
-        <span className="w-full flex justify-center text-white py-2 rounded-md">or, If do not have acccount yet: </span>
+        <span className="w-full flex justify-center text-white py-2 rounded-md">or, If you do not have account yet: </span>
         <button
         type="button"
           onClick={() => router.push('/sign-up')}

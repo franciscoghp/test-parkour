@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   
   // Busca el token en la base de datos
   const verificationToken = await db.verificationToken.findUnique({ where: { token } });
-  console.log(verificationToken)
+  //console.log(verificationToken)
   if (!verificationToken) {
     return NextResponse.json({ message: 'Invalid or expired token' }, { status: 400 });
   }

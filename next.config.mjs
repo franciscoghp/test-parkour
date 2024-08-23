@@ -17,6 +17,9 @@ const nextConfig = {
         'tls': false,
         'net': false,
         'nock': false,
+        'readline': false,
+        'node:buffer': false,
+        'node:crypto': false,
       };
         // Configura el loader para archivos HTML
         config.module.rules.push({

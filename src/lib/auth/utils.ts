@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
         
       },
       authorize: async (credentials) => {
-        console.log({credentials})
+        //console.log({credentials})
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -47,9 +47,9 @@ export const authOptions: NextAuthOptions = {
         const user = await db.user.findUnique({
           where: { email: credentials.email },
         });
-        console.log(user)
+        //console.log(user)
         if (user && await bcrypt.compare(credentials.password, user.password)) {
-          console.log({ id: user.id.toString(), email: user.email, name: user.name, emailVerified: user.emailVerified })
+          //console.log({ id: user.id.toString(), email: user.email, name: user.name, emailVerified: user.emailVerified })
           // Asegúrate de que el tipo de `id` sea string
           return { id: user.id.toString(), email: user.email, name: user.name, emailVerified: user.emailVerified };
 
@@ -60,16 +60,16 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log({ session, token, user })
-      console.log(Boolean(user?.emailVerified) )
-      console.log(Boolean(token?.emailVerified ))
+      //console.log({ session, token, user })
+      //console.log(Boolean(user?.emailVerified) )
+      //console.log(Boolean(token?.emailVerified ))
       session.user = {
         id: user?.id || String(token?.id) || '',
         name: user?.name || session.user.name,
         email: user?.email || session.user.email,
         emailVerified: Boolean(token?.emailVerified) || Boolean(user?.emailVerified) || false,
       };
-      console.log(session)
+      //console.log(session)
       return session;
     },
     async jwt({ token, user }) {
@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
         }
         // token.emailVerified = user.emailVerified;
       }
-      console.log(token)
+      //console.log(token)
       return token;
     },
   },
@@ -90,13 +90,13 @@ export const authOptions: NextAuthOptions = {
 
 export const getUserAuth = async () => {
   const session = await getServerSession(authOptions);
-  console.log({ session } as AuthSession)
+  // //console.log({ session } as AuthSession)
   return { session } as AuthSession ;
 };
 
 export const checkAuth = async () => {
   const { session } = await getUserAuth();
-  console.log(session)
+  // //console.log(session)
   if (!session) redirect("/sign-in");
 };
 
@@ -104,7 +104,7 @@ export const checkAuth = async () => {
 
 export const signUpUser = async (email: string, password: string) => {
   try {
-    console.log('signUpUser')
+    //console.log('signUpUser')
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
