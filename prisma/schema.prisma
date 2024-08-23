@@ -1,0 +1,50 @@
+// prisma/schema.prisma
+
+// Definición del origen de datos
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Generador del cliente Prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Definición de modelos
+
+// Modelo para la tabla de Usuarios
+model User {
+  id            Int              @id @default(autoincrement())
+  name          String?
+  email         String           @unique
+  password      String
+  emailVerified Boolean          @default(false)  // Nueva columna para verificar si el email está verificado
+  createdAt     DateTime         @default(now())
+  personalInfo PersonalInfo[]                    // Relación uno a muchos con el modelo PersonalInfo
+  verificationTokens VerificationToken[] // Relación con la tabla de tokens de verificación
+}
+
+model VerificationToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique // Token para la verificación de email
+  createdAt DateTime @default(now())
+  expiresAt DateTime // Fecha de expiración del token
+  userId    Int      // Relación con el usuario
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([token], map: "token_idx")
+}
+
+
+// Modelo para la información personal
+model PersonalInfo {
+  id        Int    @id @default(autoincrement()) // Identificador único para cada entrada de información
+  name      String                              // Nombre
+  cedula    String                              // Cédula
+  telefono  String                              // Teléfono
+  direccion String                              // Dirección
+  salario   Float                               // Salario
+  userId    Int                                 // ID del usuario que agregó la información
+  user      User   @relation(fields: [userId], references: [id]) // Relación con el modelo User
+}
