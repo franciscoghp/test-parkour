@@ -45,7 +45,7 @@ export function DataTableDemo({ data }: { data: PersonalInfo[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-
+  console.log(data.length)
   const table = useReactTable({
     data,
     columns,
@@ -70,9 +70,9 @@ export function DataTableDemo({ data }: { data: PersonalInfo[] }) {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter by name..."
-          value={(table.getColumn("nombre")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("nombre")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

@@ -1,7 +1,7 @@
 {
   "listPersonalInfo": "List of my Personals Info",
   "name": "Name",
-  "cedula": "Cedula",
+  "cedula": "Id",
   "telefono": "Phone",
   "direccion": "Address",
   "salario": "Salary",

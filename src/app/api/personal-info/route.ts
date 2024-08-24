@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 // POST: Guarda la información personal del usuario
 export async function POST(request: Request) {
   const { session } = await getUserAuth();
-  //console.log('hola marico',session)
+
   if (!session || !session.user || !session.user.id) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -14,34 +14,34 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
       name: string;
-      cedula: string;
-      telefono: string;
+      cedula: number;
+      telefono: number;
       direccion: string;
       salario: number;
     };
 
     // Inserta la información personal en la base de datos
-    const data = await db.personalInfo.create({
+    await db.personalInfo.create({
       data: {
         userId: Number(session.user.id),
         name: body.name,
-        cedula: body.cedula,
-        telefono: body.telefono,
+        cedula: Number(body.cedula),
+        telefono: Number(body.telefono),
         direccion: body.direccion,
         salario: body.salario,
       },
     });
 
-    // Opcional: revalidar la caché si es necesario
-    revalidatePath("/dashboard");
-
-    return new Response(JSON.stringify({ message: "Información personal guardada exitosamente", data }), { status: 200 });
+    // Redirige a la ruta /dashboard
+    revalidatePath('/dashboard')
+    return NextResponse.redirect(new URL('/dashboard', request.url));
 
   } catch (error) {
     console.error("Error al guardar la información personal:", error);
     return new Response("Error al guardar la información personal", { status: 500 });
   }
 }
+
 
 // GET: Obtiene la información personal del usuario
 export async function GET(request: Request) {
@@ -57,8 +57,9 @@ export async function GET(request: Request) {
         userId: Number(userId),
       },
     });
-
-    return NextResponse.json(personalInfo);
+    const response = await NextResponse.json(personalInfo);
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    return response;
 
   } catch (error) {
     console.error("Error al obtener la información personal:", error);

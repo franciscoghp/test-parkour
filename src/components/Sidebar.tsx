@@ -17,7 +17,7 @@ const Sidebar = async () => {
           <h3 className="text-lg font-semibold ml-4">Dashboard</h3>
           <SidebarItems />
         </div>
-        <div className="mt-auto">
+        <div className="mt-auto p-4 rounded-lg">
           <UserDetails session={session} />
           <ChangeLanguageBtn /> {/* Botón para cambiar idioma */}
         </div>
@@ -37,14 +37,8 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
   return (
     <>
     <Link href="/account">
-      <div className="flex items-center justify-between w-full border-t border-border pt-4 px-2">
-        <div className="text-muted-foreground">
-          <p className="text-xs">{user.name ?? "John Doe"}</p>
-          <p className="text-xs font-light pr-4">
-            {user.email ?? "john@doe.com"}
-          </p>
-        </div>
-        <Avatar className="h-10 w-10">
+      <div className="flex items-center justify-between w-full border-t border-border pt-4 px-2 py-2">
+        <Avatar className="h-10 w-10 me-1">
           <AvatarFallback className="border-border border-orange-400 border-2 text-muted-foreground">
             {user.name
               ? user.name
@@ -54,6 +48,12 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
               : "~"}
           </AvatarFallback>
         </Avatar>
+        <div className="text-muted-foreground">
+          <p className="text-xs">{user.name}</p>
+          <p className="text-xs font-light pr-4">
+            {user.email}
+          </p>
+        </div>
       </div>
     </Link>
     <SignOutBtn />

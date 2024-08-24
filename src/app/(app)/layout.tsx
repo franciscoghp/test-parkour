@@ -12,7 +12,6 @@ export default function AppLayout({
   // Leer la cookie de locale
   const cookieStore = cookies();
   const locale = cookieStore.get('locale')?.value || 'es'; // Valor por defecto
-  console.log(locale)
   return (
     <I18nProvider locale={locale}>
       <NextAuthProvider>

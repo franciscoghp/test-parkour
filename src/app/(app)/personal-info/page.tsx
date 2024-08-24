@@ -4,6 +4,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import TranslateText from "@/components/translateText/page";
+import Loading from "@/app/loading";
+import { useState } from "react";
+import { toast, Toaster } from "sonner";
 
 // Definir el esquema de validación usando Zod
 const schema = z.object({
@@ -31,19 +34,25 @@ const AddPersonalInfoPage: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
+    setLoading(true)
+    // data.cedula = Number(data.cedula);
+    // data.telefono = Number(data.telefono);
     const response = await fetch('/api/personal-info', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-
+    setLoading(false)
     if (response.ok) {
+      toast.success("Successfully submitted!");
       router.push('/dashboard');
+      router.refresh();
     } else {
+      toast.error("Error happened.");
       console.error('Failed to submit data');
     }
   };
@@ -142,15 +151,19 @@ const AddPersonalInfoPage: React.FC = () => {
           </div>
 
           <div className="text-center">
+          { loading ? 
+            <Loading/> :
             <button
               type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Submit
             </button>
+          }
           </div>
         </form>
       </div>
+      <Toaster/>
     </div>
   );
 };

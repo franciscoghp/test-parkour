@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import Loading from "@/app/loading";
 
 const schema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -22,11 +23,12 @@ const SignUpPage: React.FC = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     try {
+      setLoading(true)
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -34,7 +36,7 @@ const SignUpPage: React.FC = () => {
         },
         body: JSON.stringify(data),
       });
-
+      setLoading(false)
       if (response.ok) {
         router.push("/sign-in"); // Redirige al usuario a la página de inicio de sesión después del registro exitoso
       } else {
@@ -100,8 +102,9 @@ const SignUpPage: React.FC = () => {
         >
           Sign Up
         </button>
+      { loading && <Loading/> }
         <hr />
-        <span className="w-full flex justify-center text-white py-2 rounded-md">or, If you do have account already: </span>
+        <span className="w-full flex justify-center  py-2 rounded-md">or, If you do have account already: </span>
         <button
         type="button"
           onClick={() => router.push('/sign-in')}

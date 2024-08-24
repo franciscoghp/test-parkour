@@ -6,6 +6,7 @@ import { getSession, signIn, } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
+import Loading from "@/app/loading";
 
 const schema = z.object({
   email: z.string().email("Invalid email address").nonempty("Email is required"),
@@ -23,26 +24,24 @@ const SignInPage: React.FC = () => {
     resolver: zodResolver(schema),
   });
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
-    //console.log(data)
+    setLoading(true)
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password,
       callbackUrl: '/dashboard'
     });
-    //console.log({result})
+    setLoading(false)
     if (result?.error && result.status == 401) {
       setError("Credenciales incorrectas. Inténtalo de nuevo.");
     } else if (result?.ok) {
       const session = await getSession();
-      //console.log(session)
       if( session?.user.emailVerified ) router.push(result.url || '/dashboard' );
-      else setError("Por favor, verifica tu correo electrónico antes de continuar.");4
-      
-      // 
+      else setError("Por favor, verifica tu correo electrónico antes de continuar.");
     }
   };
 
@@ -83,8 +82,9 @@ const SignInPage: React.FC = () => {
         >
           Sign In
         </button>
+        { loading && <Loading/> }
         <hr />
-        <span className="w-full flex justify-center text-white py-2 rounded-md">or, If you do not have account yet: </span>
+        <span className="w-full flex justify-center  py-2 rounded-md">or, If you do not have account yet: </span>
         <button
         type="button"
           onClick={() => router.push('/sign-up')}

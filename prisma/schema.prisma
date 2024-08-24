@@ -41,8 +41,8 @@ model VerificationToken {
 model PersonalInfo {
   id        Int    @id @default(autoincrement()) // Identificador único para cada entrada de información
   name      String                              // Nombre
-  cedula    String                              // Cédula
-  telefono  String                              // Teléfono
+  cedula    Float                                    // Cédula
+  telefono  Float                                    // Teléfono
   direccion String                              // Dirección
   salario   Float                               // Salario
   userId    Int                                 // ID del usuario que agregó la información

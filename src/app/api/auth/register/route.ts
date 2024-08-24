@@ -7,7 +7,6 @@ import { addHours } from "date-fns";
 
 export async function POST(request: Request) {
   const { name, email, password } = await request.json();
-  //console.log({ name, email, password } )
   // Check if the user already exists
   const existingUser = await db.user.findUnique({
     where: { email },
@@ -19,7 +18,7 @@ export async function POST(request: Request) {
 
   // Hash the password
   const hashedPassword = await hash(password, 10);
-  //console.log({ hashedPassword } )
+
   // Create the user in the database
   const user = await db.user.create({
     data: {
@@ -29,11 +28,10 @@ export async function POST(request: Request) {
       emailVerified: false, // Set email verification status to false
     },
   });
-  //console.log({user})
+
   // Generate a token for email verification (e.g., JWT or UUID)
   const token = randomBytes(32).toString('hex');
   const expiresAt = addHours(new Date(), 1); // Token expira en 1 hora
-  //console.log({token})
 
   // Guardar el token en la base de datos
   await db.verificationToken.create({

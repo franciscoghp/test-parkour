@@ -25,8 +25,8 @@ CREATE TABLE "VerificationToken" (
 CREATE TABLE "PersonalInfo" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "cedula" TEXT NOT NULL,
-    "telefono" TEXT NOT NULL,
+    "cedula" INTEGER NOT NULL,
+    "telefono" INTEGER NOT NULL,
     "direccion" TEXT NOT NULL,
     "salario" DOUBLE PRECISION NOT NULL,
     "userId" INTEGER NOT NULL,

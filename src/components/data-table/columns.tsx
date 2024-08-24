@@ -16,8 +16,8 @@ import {
 export type PersonalInfo = {
   id: string
   name: string
-  cedula: string
-  telefono: string
+  cedula: number
+  telefono: number
   direccion: string
   salario: number
 }
