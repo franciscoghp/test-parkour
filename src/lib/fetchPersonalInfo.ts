@@ -8,6 +8,7 @@ export async function fetchPersonalInfo(): Promise<PersonalInfo[]> {
     const { session } = await getUserAuth();
     // Agrega un parámetro aleatorio para forzar la actualización
     let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
+    console.log(`${url}/api/personal-info?userId=${session?.user.id}&_=${Date.now()}`)
     const response = await fetch(`${url}/api/personal-info?userId=${session?.user.id}&_=${Date.now()}`, {
       method: "GET",
       cache: 'force-cache'
