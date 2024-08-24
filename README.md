@@ -1,4 +1,4 @@
-# Nombre de la Aplicación
+# Francisco Parkour
 
 ## Descripción
 
@@ -9,7 +9,7 @@ La aplicación incluye autenticación de usuario, validaciones de formularios, i
 
 Asegúrate de tener instalado lo siguiente en tu entorno de desarrollo:
 
-- [Node.js](https://nodejs.org/) (versión X.X.X o superior)
+- [Node.js](https://nodejs.org/) (versión 21.0.0 o superior)
 - [npm](https://www.npmjs.com/) (viene con Node.js)
 
 ## Instalación y Configuración
