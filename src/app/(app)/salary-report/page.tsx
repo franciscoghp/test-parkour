@@ -1,5 +1,7 @@
+import SalaryChart from '@/components/chart/page';
 import { PersonalInfo } from '@/components/data-table/columns';
 import { getUserAuth } from '@/lib/auth/utils';
+
 
 async function getPersonalInfoData() {
   const { session } = await getUserAuth();
@@ -38,6 +40,9 @@ export default async function SalaryReport() {
         2
       : sortedData[Math.floor(sortedData.length / 2)].salario;
 
+  const labels = sortedData.map((user: PersonalInfo) => user.name);
+  const salaries = sortedData.map((user: PersonalInfo) => user.salario);
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Reporte de Salarios</h2>
@@ -56,6 +61,10 @@ export default async function SalaryReport() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="mt-8">
+        <h3 className="text-lg font-medium mb-4">Tendencia de Salarios</h3>
+        <SalaryChart labels={labels} salaries={salaries} />
       </div>
     </div>
   );
