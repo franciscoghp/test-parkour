@@ -1,26 +1,29 @@
-// src/app/layout.tsx
-import { checkAuth } from '@/lib/auth/utils';
-import { Toaster } from '@/components/ui/sonner';
+import { cookies } from 'next/headers';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import NextAuthProvider from '@/lib/auth/Provider';
+import { I18nProvider } from '@/i18';
 
-export default async function AppLayout({
+export default function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  await checkAuth(); // Verifica la autenticación
+  // Leer la cookie de locale
+  const cookieStore = cookies();
+  const locale = cookieStore.get('locale')?.value || 'es'; // Valor por defecto
+  console.log(locale)
   return (
-    <NextAuthProvider>
-      <main className="flex h-screen">
-        <Sidebar />
-        <main className="flex-1 md:p-8 pt-2 p-8 overflow-y-auto">
-          <Navbar />
-          {children}
+    <I18nProvider locale={locale}>
+      <NextAuthProvider>
+        <main className="flex h-screen">
+          <Sidebar />
+          <main className="flex-1 md:p-8 pt-2 p-8 overflow-y-auto">
+            <Navbar />
+            {children}
+          </main>
         </main>
-      </main>
-      <Toaster richColors />
-    </NextAuthProvider>
+      </NextAuthProvider>
+    </I18nProvider>
   );
 }

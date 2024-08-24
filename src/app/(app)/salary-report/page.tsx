@@ -1,7 +1,7 @@
 import SalaryChart from '@/components/chart/page';
 import { PersonalInfo } from '@/components/data-table/columns';
+import TranslateText from '@/components/translateText/page';
 import { getUserAuth } from '@/lib/auth/utils';
-
 
 async function getPersonalInfoData() {
   const { session } = await getUserAuth();
@@ -26,7 +26,7 @@ export default async function SalaryReport() {
   const data = await getPersonalInfoData();
 
   if (!data.length) {
-    return <div>No data available</div>;
+    return <div><TranslateText id={'noDataAvailable'}/></div>;
   }
 
   const sortedData = data.sort((a: PersonalInfo, b: PersonalInfo) => b.salario - a.salario);
@@ -45,15 +45,15 @@ export default async function SalaryReport() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Reporte de Salarios</h2>
+      <h2 className="text-xl font-semibold mb-4"><TranslateText id={'salaryReport'}/></h2>
       <div className="mb-6">
-        <h3 className="text-lg font-medium">Estadísticas</h3>
-        <p>Total de usuarios: {data.length}</p>
-        <p>Salario promedio: ${averageSalary.toFixed(2)}</p>
-        <p>Salario medio: ${medianSalary.toFixed(2)}</p>
+        <h3 className="text-lg font-medium"><TranslateText id={'statistics'}/></h3>
+        <p><TranslateText id={'totalUsers'}/> {data.length}</p>
+        <p><TranslateText id={'averageSalary'}/> ${averageSalary.toFixed(2)}</p>
+        <p><TranslateText id={'medianSalary'}/> ${medianSalary.toFixed(2)}</p>
       </div>
       <div>
-        <h3 className="text-lg font-medium mb-2">Usuarios con mejores salarios</h3>
+        <h3 className="text-lg font-medium mb-2"><TranslateText id={'topSalaries'}/></h3>
         <ul className="list-disc pl-5">
           {sortedData.map((user: PersonalInfo, index: number) => (
             <li key={index}>
@@ -63,7 +63,7 @@ export default async function SalaryReport() {
         </ul>
       </div>
       <div className="mt-8">
-        <h3 className="text-lg font-medium mb-4">Tendencia de Salarios</h3>
+        <h3 className="text-lg font-medium mb-4"><TranslateText id={'salaryTrend'}/></h3>
         <SalaryChart labels={labels} salaries={salaries} />
       </div>
     </div>

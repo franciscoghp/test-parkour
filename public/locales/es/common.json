@@ -1,0 +1,27 @@
+{
+  "listPersonalInfo": "Lista de Información Personales",
+  "name": "Nombre",
+  "cedula": "Cédula",
+  "telefono": "Teléfono",
+  "direccion": "Dirección",
+  "salario": "Salario",
+  "column": "Columna",
+  "personalInfo": "Información Personal",
+  "addPersonalInfo": "Agregar Información Personal",
+  "salaryReport": "Reporte de Salarios",
+  "statistics": "Estadísticas",
+  "totalUsers": "Total de usuarios",
+  "averageSalary": "Salario promedio",
+  "medianSalary": "Salario medio",
+  "topSalaries": "Usuarios con mejores salarios",
+  "noDataAvailable": "No hay datos disponibles",
+  "salaryTrend": "Tendencia de Salarios",
+  "settings": "Configuración",
+  "appearance": "Apariencia",
+  "customize": "Personaliza la apariencia de tu aplicación, incluyendo temas para el modo claro u oscuro.",
+  "light": "Claro",
+  "dark": "Oscuro",
+  "system": "Sistema",
+  "signOut": "Cerrar Sesión"
+
+}

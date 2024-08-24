@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import TranslateText from "@/components/translateText/page";
 
 // Definir el esquema de validación usando Zod
 const schema = z.object({
@@ -49,15 +50,15 @@ const AddPersonalInfoPage: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Personal Info</h1>
+      <h1 className="text-2xl font-semibold"><TranslateText id={'personalInfo'}/></h1>
       <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-          Add Personal Information
+          <TranslateText id={'addPersonalInfo'}/>
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
+              <TranslateText id={'name'}/>
             </label>
             <input
               {...register("name")}
@@ -74,7 +75,7 @@ const AddPersonalInfoPage: React.FC = () => {
 
           <div>
             <label htmlFor="cedula" className="block text-sm font-medium text-gray-700">
-              Cedula
+              <TranslateText id={'cedula'}/>
             </label>
             <input
               {...register("cedula", { valueAsNumber: true })}
@@ -91,7 +92,7 @@ const AddPersonalInfoPage: React.FC = () => {
 
           <div>
             <label htmlFor="telefono" className="block text-sm font-medium text-gray-700">
-              Telefono
+              <TranslateText id={'telefono'}/>
             </label>
             <input
               {...register("telefono", { valueAsNumber: true })}
@@ -108,7 +109,7 @@ const AddPersonalInfoPage: React.FC = () => {
 
           <div>
             <label htmlFor="direccion" className="block text-sm font-medium text-gray-700">
-              Direccion
+              <TranslateText id={'direccion'}/>
             </label>
             <input
               {...register("direccion")}
@@ -125,7 +126,7 @@ const AddPersonalInfoPage: React.FC = () => {
 
           <div>
             <label htmlFor="salario" className="block text-sm font-medium text-gray-700">
-              Salario
+              <TranslateText id={'salario'}/>
             </label>
             <input
               {...register("salario", { valueAsNumber: true })}

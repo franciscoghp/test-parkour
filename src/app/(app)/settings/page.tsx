@@ -1,5 +1,6 @@
 "use client";
 
+import TranslateText from "@/components/translateText/page";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
@@ -7,13 +8,12 @@ export default function Page() {
   const { setTheme } = useTheme();
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Settings</h1>
+      <h1 className="text-2xl font-semibold"><TranslateText id={'settings'}/></h1>
       <div className="space-y-4 my-4">
         <div>
-          <h3 className="text-lg font-medium">Appearance</h3>
+          <h3 className="text-lg font-medium"><TranslateText id={'appearance'}/></h3>
           <p className="text-sm text-muted-foreground">
-            Customize the appearance of the app. Automatically switch between
-            day and night themes.
+            <TranslateText id={'customize'}/>
           </p>
         </div>
         <Button
@@ -40,7 +40,7 @@ export default function Page() {
               </div>
             </div>
             <span className="block w-full p-2 text-center font-normal">
-              Light
+              <TranslateText id={'light'}/>
             </span>
           </div>
         </Button>
@@ -68,7 +68,7 @@ export default function Page() {
               </div>
             </div>
             <span className="block w-full p-2 text-center font-normal">
-              Dark
+              <TranslateText id={'dark'}/>
             </span>
           </div>
         </Button>
@@ -96,7 +96,7 @@ export default function Page() {
               </div>
             </div>
             <span className="block w-full p-2 text-center font-normal">
-              System
+              <TranslateText id={'system'}/>
             </span>
           </div>
         </Button>
