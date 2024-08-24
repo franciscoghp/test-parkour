@@ -31,11 +31,11 @@ import nodemailer from 'nodemailer';
 
 // Configura tu transportador de Nodemailer
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
+  host: process.env.EMAIL_SERVER_HOST,
+  port: Number(process.env.EMAIL_SERVER_PORT),
   auth: {
-    user: 'francisco9mil@gmail.com', // Tu dirección de correo electrónico
-    pass: 'boqbmanalifslcgr',// Tu contraseña de la cuenta de correo
+    user: process.env.EMAIL_SERVER_USER, // Tu dirección de correo electrónico
+    pass: process.env.EMAIL_SERVER_PASSWORD,// Tu contraseña de la cuenta de correo
   },
   tls: {
     rejectUnauthorized: false,
@@ -47,7 +47,7 @@ export async function sendVerificationEmail(email: string, token: string) {
   try {
     const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${token}`;
     const mailOptions = {
-      from: 'francisco9mil@gmail.com', // El correo desde el que se envía
+      from: process.env.EMAIL_SERVER_USER, // El correo desde el que se envía
       to: email, // El correo del destinatario
       subject: "Verify your email address",
       html: `<p>Click the link below to verify your email address:</p>

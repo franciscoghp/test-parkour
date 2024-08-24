@@ -45,7 +45,7 @@ export function DataTableDemo({ data }: { data: PersonalInfo[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  console.log(data.length)
+
   const table = useReactTable({
     data,
     columns,
