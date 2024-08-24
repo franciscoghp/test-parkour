@@ -13,12 +13,3 @@ export const db =
   });
 
 if (process.env.NODE_ENV !== "production") global.db = db;
-
-
-// import { PrismaClient } from '@prisma/client';
-
-// // Crear una instancia de PrismaClient
-// const prisma = new PrismaClient();
-
-// // Exportar prisma para que se pueda utilizar en otras partes del proyecto
-// export { prisma };

@@ -36,7 +36,7 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
 
   return (
     <>
-    <Link href="/account">
+
       <div className="flex items-center justify-between w-full border-t border-border pt-4 px-2 py-2">
         <Avatar className="h-10 w-10 me-1">
           <AvatarFallback className="border-border border-orange-400 border-2 text-muted-foreground">
@@ -55,7 +55,7 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
           </p>
         </div>
       </div>
-    </Link>
+
     <SignOutBtn />
     </>
   );
