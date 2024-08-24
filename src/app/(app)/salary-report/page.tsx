@@ -8,6 +8,7 @@ async function getPersonalInfoData() {
   
   if (session?.user?.id) {
     let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
+    console.log('process.env.NODE_ENV ', process.env.NODE_ENV )
     console.log(`${url}/api/personal-info?userId=${session?.user.id}`)
     const response = await fetch(`${url}/api/personal-info?userId=${session?.user.id}`, {
       method: "GET",
