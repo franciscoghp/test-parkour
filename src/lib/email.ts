@@ -45,7 +45,8 @@ const transporter = nodemailer.createTransport({
 // Función para enviar el correo
 export async function sendVerificationEmail(email: string, token: string) {
   try {
-    const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${token}`;
+    let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
+    const verificationUrl = `${url}/verify-email?token=${token}`;
     const mailOptions = {
       from: process.env.EMAIL_SERVER_USER, // El correo desde el que se envía
       to: email, // El correo del destinatario
