@@ -46,7 +46,6 @@ const transporter = nodemailer.createTransport({
 export async function sendVerificationEmail(email: string, token: string) {
   try {
     let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
-    console.log(`${url}/verify-email?token=${token}`)
     const verificationUrl = `${url}/verify-email?token=${token}`;
     const mailOptions = {
       from: process.env.EMAIL_SERVER_USER, // El correo desde el que se envía
@@ -55,8 +54,7 @@ export async function sendVerificationEmail(email: string, token: string) {
       html: `<p>Click the link below to verify your email address:</p>
             <a href="${verificationUrl}">Verify Email</a>`,
     };
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Correo enviado: %s', info.messageId);
+    await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error('Error al enviar el correo: %s', error);
   }
