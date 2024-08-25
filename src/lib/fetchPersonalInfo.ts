@@ -6,20 +6,37 @@ export const revalidate = 0; // O usa 'force-dynamic' si quieres regenerar en ca
 export async function fetchPersonalInfo(): Promise<PersonalInfo[]> {
   try {
     const { session } = await getUserAuth();
-    // Agrega un parámetro aleatorio para forzar la actualización
-    let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
-    console.log(`${url}/api/personal-info?userId=${session?.user.id}&_=${Date.now()}`)
-    const response = await fetch(`${url}/api/personal-info?userId=${session?.user.id}&_=${Date.now()}`, {
-      method: "GET",
-      cache: 'force-cache'
-    });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch personal info data");
+    if (session?.user?.id) {
+      // Determina la URL base según el entorno
+      const baseUrl = process.env.NODE_ENV === 'production'
+        ? process.env.VERCEL_URL
+        : 'http://localhost:3000';
+
+      // Construye la URL completa para la solicitud
+      // const url = `${baseUrl}/api/personal-info?userId=${session?.user.id}`;
+      const url = `${baseUrl}/api/personal-info?userId=${session?.user.id}`;
+
+      console.log('Fetching data from:', url);
+
+      // Realiza la solicitud
+      const response = await fetch(url, {
+        method: "GET",
+        cache: 'force-cache' // Usa 'force-cache' si quieres forzar la caché
+      });
+
+      // Verifica si la respuesta es válida
+      if (!response.ok) {
+        throw new Error("Failed to fetch personal info data");
+      }
+
+      // Obtén los datos en formato JSON
+      const data: PersonalInfo[] = await response.json();
+      return data;
     }
-    const data: PersonalInfo[] = await response.json();
 
-    return data;
+    // Devuelve una lista vacía si no hay datos
+    return [];
   } catch (error) {
     console.error("Error fetching personal info data:", error);
     return [];

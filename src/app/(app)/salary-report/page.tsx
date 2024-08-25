@@ -5,25 +5,31 @@ import { getUserAuth } from '@/lib/auth/utils';
 
 async function getPersonalInfoData() {
   const { session } = await getUserAuth();
-  
+
   if (session?.user?.id) {
-    let url = process.env.NODE_ENV == 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
-    console.log('process.env.NODE_ENV ', process.env.NODE_ENV )
-    console.log(`${url}/api/personal-info?userId=${session?.user.id}`)
-    const response = await fetch(`${url}/api/personal-info?userId=${session?.user.id}`, {
+    const baseUrl = process.env.NODE_ENV === 'production'
+      ? process.env.VERCEL_URL
+      : 'http://localhost:3000';
+
+    // Construimos la URL completa para la solicitud
+    const apiUrl = `${baseUrl}/api/personal-info?userId=${session.user.id}`;
+    console.log('Fetching URL:', apiUrl);
+
+    const response = await fetch(apiUrl, {
       method: "GET",
     });
- 
+
     if (!response.ok) {
       throw new Error('Failed to fetch personal info');
     }
-    
+
     const data = await response.json();
     return data;
   }
-  
+
   return [];
 }
+
 
 export default async function SalaryReport() {
   const data = await getPersonalInfoData();

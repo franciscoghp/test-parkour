@@ -61,8 +61,8 @@ export async function GET(request: Request) {
     response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     return response;
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error al obtener la información personal:", error);
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    return NextResponse.json({ error: `Failed to fetch data: ${error.message}` }, { status: 500 });
   }
 }
