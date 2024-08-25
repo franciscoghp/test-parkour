@@ -54,8 +54,7 @@ export async function sendVerificationEmail(email: string, token: string) {
       html: `<p>Click the link below to verify your email address:</p>
             <a href="${verificationUrl}">Verify Email</a>`,
     };
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Correo enviado: %s', info.messageId);
+    await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error('Error al enviar el correo: %s', error);
   }

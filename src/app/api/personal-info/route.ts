@@ -47,8 +47,9 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
+
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "User ID is required" }, { status: 400 });
   }
 
   try {
@@ -57,12 +58,14 @@ export async function GET(request: Request) {
         userId: Number(userId),
       },
     });
-    const response = await NextResponse.json(personalInfo);
-    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    return response;
 
+    const response = NextResponse.json(personalInfo);
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Access-Control-Allow-Origin', '*'); // Permite solicitudes desde cualquier origen
+
+    return response;
   } catch (error) {
-    console.error("Error al obtener la información personal:", error);
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    return new Response("Failed to fetch data", { status: 500 });
   }
 }
+
