@@ -8,7 +8,7 @@ async function getPersonalInfoData() {
 
   if (session?.user?.id) {
     const baseUrl = process.env.NODE_ENV === 'production'
-      ? process.env.VERCEL_URL
+      ? 'https://'+process.env.VERCEL_URL
       : 'http://localhost:3000';
 
     // Construimos la URL completa para la solicitud

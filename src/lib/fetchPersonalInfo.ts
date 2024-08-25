@@ -10,7 +10,7 @@ export async function fetchPersonalInfo(): Promise<PersonalInfo[]> {
     if (session?.user?.id) {
       // Determina la URL base según el entorno
       const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.VERCEL_URL
+        ? 'https://'+process.env.VERCEL_URL
         : 'http://localhost:3000';
 
       // Construye la URL completa para la solicitud
